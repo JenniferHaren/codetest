@@ -12,10 +12,12 @@ class App extends Component {
       currentView: 'deck',
       currentCardIndex: 0,
       featuredCards: [],
+      lastArtistId: 49,
       currentCard: {},
       artistName: '',
       picUrl: '',
       fact: '',
+      deckLength: 49,
     };
     this.getMoreArtists = this.getMoreArtists.bind(this);
     this.viewNextArtist = this.viewNextArtist.bind(this);
@@ -29,13 +31,16 @@ class App extends Component {
     this.getMoreArtists();
   }
 
-  getMoreArtists() {  
-    console.log('INSIDE OF GET MORE ARTISTS!!!!!!!!!!!');
+  getMoreArtists() {
+    const { currentCard, lastArtistId } = this.state;
 
     let newId = 0;
 
-    if (this.state.currentCard.id) {
-      newId = this.state.currentCard.id;
+    if (currentCard.id) {
+      newId = currentCard.id;
+    }
+    if (currentCard.id >= lastArtistId) {
+      newId = 0;
     }
 
     axios
@@ -51,17 +56,20 @@ class App extends Component {
   }
 
   viewNextArtist() {
-    const { currentCardIndex, featuredCards } = this.state;
+    const { currentCardIndex, featuredCards, currentCard, lastArtistId } = this.state;
 
     if (currentCardIndex === 9) {
       this.getMoreArtists();
       return;
+    } else if (currentCard.id >= lastArtistId) {
+      this.getMoreArtists();
+      return;
     }
     this.setState({
+      currentCard: featuredCards[currentCardIndex + 1],
       currentCardIndex: currentCardIndex + 1,
-    }, this.setState({
-      currentCard: featuredCards[currentCardIndex],
-    }));
+      currentView: 'deck',
+    });
   }
 
   handleInputChange(e) {
@@ -72,14 +80,15 @@ class App extends Component {
 
   addNewArtist(e) {
     e.preventDefault();
-    const { artistName, picUrl, fact } = this.state;
-    let newArtist;
+    const { artistName, picUrl, fact, lastArtistId, deckLength } = this.state;
     axios
       .post('/api/cards', { artistName, picUrl, fact })
       .then(({ data }) => {
         this.setState({
           currentView: 'deck',
-          currentCard: data
+          currentCard: data,
+          deckLength: deckLength + 1,
+          lastArtistId: lastArtistId + 1,
         });
       })
       .catch(err => console.log('Error posting a new card', err));
@@ -91,6 +100,9 @@ class App extends Component {
     axios
       .delete('/api/cards', { params: { id } })
       .then(() => this.viewNextArtist())
+      .then(this.setState({
+        deckLength: this.state.deckLength - 1
+      }))
       .catch(err => console.log('Error deleting from the database', err));
   }
 
