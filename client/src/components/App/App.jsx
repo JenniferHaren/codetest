@@ -20,6 +20,7 @@ class App extends Component {
     this.getMoreArtists = this.getMoreArtists.bind(this);
     this.viewNextArtist = this.viewNextArtist.bind(this);
     this.renderForm = this.renderForm.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +63,13 @@ class App extends Component {
     this.setState({ currentView: 'form' });
   }
 
+  handleInputChange(e) {
+    console.log('IN handleInputChange!!!!!!')
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  }
+
   render() {
     const { currentCard, currentCardIndex, viewNextArtist, currentView } = this.state;
 
@@ -75,7 +83,9 @@ class App extends Component {
                 currentCard={ currentCard }
                 index={ currentCardIndex }
               />
-              : <NewCardForm />
+              : <NewCardForm
+                handleChange={ this.handleInputChange }
+               />
             }
             <Navigation
               viewNextArtist={ this.viewNextArtist }
