@@ -22,6 +22,7 @@ class App extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addNewArtist = this.addNewArtist.bind(this);
     this.renderForm = this.renderForm.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
   }
 
   componentDidMount() {
@@ -84,6 +85,15 @@ class App extends Component {
       .catch(err => console.log('Error posting a new card', err));
   }
 
+  deleteCard() {
+    const { id } = this.state.currentCard;
+
+    axios
+      .delete('/api/cards', { params: { id } })
+      .then(() => this.viewNextArtist())
+      .catch(err => console.log('Error deleting from the database', err));
+  }
+
   renderForm() {
     this.setState({ currentView: 'form' });
   }
@@ -104,11 +114,12 @@ class App extends Component {
               : <NewCardForm
                 handleChange={ this.handleInputChange }
                 addNewArtist={ this.addNewArtist }
-               />
+                />
             }
             <Navigation
               viewNextArtist={ this.viewNextArtist }
               renderForm={ this.renderForm }
+              deleteCard={ this.deleteCard }
             />
         </div>
     );
