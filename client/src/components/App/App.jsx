@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DivaCard from '../DivaCard/DivaCard.jsx';
+import Navigation from '../Navigation/Navigation.jsx';
 import AppStyles from './AppStyles.css';
 
 class App extends Component {
@@ -42,6 +43,7 @@ class App extends Component {
                 <h1>DivaDeck</h1>
             </div>
             <DivaCard currentView={ currentView } />
+            <Navigation />
         </div>
     );
   }
