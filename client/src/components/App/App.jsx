@@ -12,6 +12,7 @@ class App extends Component {
       currentView: 'deck',
       currentCardIndex: 0,
       featuredCards: [],
+      lastArtistId: 49,
       currentCard: {},
       artistName: '',
       picUrl: '',
@@ -31,14 +32,14 @@ class App extends Component {
   }
 
   getMoreArtists() {
-    const { currentCard, deckLength } = this.state;
+    const { currentCard, lastArtistId } = this.state;
 
     let newId = 0;
 
     if (currentCard.id) {
       newId = currentCard.id;
     }
-    if (currentCard.id >= deckLength) {
+    if (currentCard.id >= lastArtistId) {
       newId = 0;
     }
 
@@ -55,12 +56,12 @@ class App extends Component {
   }
 
   viewNextArtist() {
-    const { currentCardIndex, featuredCards, currentCard, deckLength } = this.state;
+    const { currentCardIndex, featuredCards, currentCard, lastArtistId } = this.state;
 
     if (currentCardIndex === 9) {
       this.getMoreArtists();
       return;
-    } else if (currentCard.id >= deckLength) {
+    } else if (currentCard.id >= lastArtistId) {
       this.getMoreArtists();
       return;
     }
@@ -79,15 +80,15 @@ class App extends Component {
 
   addNewArtist(e) {
     e.preventDefault();
-    const { artistName, picUrl, fact } = this.state;
-    let newArtist;
+    const { artistName, picUrl, fact, lastArtistId, deckLength } = this.state;
     axios
       .post('/api/cards', { artistName, picUrl, fact })
       .then(({ data }) => {
         this.setState({
           currentView: 'deck',
           currentCard: data,
-          deckLength: this.state.deckLength + 1
+          deckLength: deckLength + 1,
+          lastArtistId: lastArtistId + 1,
         });
       })
       .catch(err => console.log('Error posting a new card', err));
