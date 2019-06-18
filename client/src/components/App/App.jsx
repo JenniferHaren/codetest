@@ -27,9 +27,13 @@ class App extends Component {
     this.deleteCard = this.deleteCard.bind(this);
   }
 
+  // GET THE FIRST 10 ARTISTS FROM THE DATABASE 
+
   componentDidMount() {
     this.getMoreArtists();
   }
+
+  // SEND A GET REQUEST TO THE SERVER BASED ON THE ID SENT
 
   getMoreArtists() {
     const { currentCard, lastArtistId } = this.state;
@@ -55,6 +59,8 @@ class App extends Component {
       .catch(err => console.log('Error getting featuredCards', err));
   }
 
+  // ALLOW THE USER TO BROWSE THROUGH THE DECK
+
   viewNextArtist() {
     const { currentCardIndex, featuredCards, currentCard, lastArtistId } = this.state;
 
@@ -78,6 +84,8 @@ class App extends Component {
     });
   }
 
+  // ADD A NEW ARTIST TO THE DECK
+
   addNewArtist(e) {
     e.preventDefault();
     const { artistName, picUrl, fact, lastArtistId, deckLength } = this.state;
@@ -93,6 +101,8 @@ class App extends Component {
       })
       .catch(err => console.log('Error posting a new card', err));
   }
+
+  // DELETE A CARD FROM THE DECK
 
   deleteCard() {
     const { id } = this.state.currentCard;

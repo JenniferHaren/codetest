@@ -17,6 +17,7 @@ module.exports = {
     Card.find({ id: { $gte: lowerBound, $lte: upperBound } })
 
     // if a card has been deleted from the database - make sure getNextCards still returns 10 cards
+
       .then((cards) => {
         if (cards.length < 10) {
           firstGet = cards;
