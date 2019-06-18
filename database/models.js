@@ -14,7 +14,7 @@ const cardSchema = new mongoose.Schema({
 });
 
 const renderDBArtistObjects = (arr) => {
-  let counter = 1;
+  let counter = 0;
   return arr.map(artist => {
     return {
       id: counter += 1,
@@ -29,6 +29,6 @@ const databaseArtists = renderDBArtistObjects(artistList.artists);
 
 const Card = new mongoose.model('Card', cardSchema);
 
-Card.insertMany(databaseArtists, function(error, docs) {});
+// Card.insertMany(databaseArtists, function(error,docs) {});
 
 module.exports = Card;
