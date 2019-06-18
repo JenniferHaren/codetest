@@ -25,7 +25,7 @@ const renderDBArtistObjects = (arr) => {
   });
 };
 
-const databaseArtists = renderDBArtistObjects(artistList.artists);
+// const databaseArtists = renderDBArtistObjects(artistList.artists);
 
 const Card = new mongoose.model('Card', cardSchema);
 
