@@ -1,6 +1,6 @@
 const Card = require('../database/models');
 
-let cardCount = 50;
+let lastId = 49;
 
 module.exports = {
 
@@ -12,24 +12,22 @@ module.exports = {
     const lowerBound = parseInt(id);
     const upperBound = lowerBound + 9;
 
-    console.log('THIS IS THE UPPERBOUND---------', upperBound);
     let firstGet;
 
     Card.find({ id: { $gte: lowerBound, $lte: upperBound } })
 
     // if a card has been deleted from the database - make sure getNextCards still returns 10 cards
-      .then(cards => {
-        console.log('THIS IS THE CARDS.LENGTH!!!!', cards.length);
-        console.log('THESE ARE THE CARDS--------', cards);
+      .then((cards) => {
         if (cards.length < 10) {
           firstGet = cards;
-          const missingCards = 10 - cards.length; 
-          const lastId = cards[cards.length - 1].id + 1;
-          Card.find({ id: { $gte: lastId, $lt: lastId + missingCards } })
+          const missingCards = 10 - cards.length;
+          const lastIdFound = cards[cards.length - 1].id + 1;
+          Card.find({ id: { $gte: lastIdFound, $lt: lastIdFound + missingCards } })
             .then(newCards => res.status(200).send(firstGet.concat(newCards)));
         } else if (cards.length === 10) {
           res.status(200).send(cards);
         } else {
+          res.status(404).send('Error getting 10 new cards');
         }
       })
       .catch(err => console.log('Error getting cards', err));
@@ -37,11 +35,12 @@ module.exports = {
   // posts a new card/document to the database
   postNewCard: (req, res) => {
     const { artistName, picUrl, fact } = req.body;
+    lastId += 1;
 
     Card.create({
-      id: cardCount, artistName, picUrl, fact
+      id: lastId, artistName, picUrl, fact,
     })
-      .then(() => res.status(201).send('Success creating new card'))
+      .then(card => res.status(200).send(card))
       .catch(err => console.log('Error creating new card', err));
   },
   // deletes a card/document from the database

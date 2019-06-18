@@ -6,21 +6,21 @@ mongoose.set('useCreateIndex', true);
 const cardSchema = new mongoose.Schema({
   id: {
     type: Number,
-    index: true
+    index: true,
   },
   artistName: String,
   picUrl: String,
-  fact: String
+  fact: String,
 });
 
 const renderDBArtistObjects = (arr) => {
   let counter = 0;
-  return arr.map(artist => {
+  return arr.map((artist) => {
     return {
       id: counter += 1,
       artistName: artist.name,
       picUrl: artist.images[1].url,
-      fact: `${artist.name} is a ${artist.genres[0]} artist with ${artist.followers.total} followers and a popularity rating of ${artist.popularity} on Spotify.`
+      fact: `${artist.name} is a ${artist.genres[0]} artist with ${artist.followers.total} followers and a popularity rating of ${artist.popularity} on Spotify.`,
     };
   });
 };

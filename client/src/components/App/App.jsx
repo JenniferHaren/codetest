@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DivaCard from '../DivaCard/DivaCard.jsx';
+import NewCardForm from '../NewCardForm/NewCardForm.jsx';
 import Navigation from '../Navigation/Navigation.jsx';
 import AppStyles from './AppStyles.css';
 
@@ -8,22 +9,28 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentView: 'deck',
       currentCardIndex: 0,
       featuredCards: [],
       currentCard: {},
-      newCardName: '',
-      newPicUrl: '',
-      newFact: '',
+      artistName: '',
+      picUrl: '',
+      fact: '',
     };
     this.getMoreArtists = this.getMoreArtists.bind(this);
     this.viewNextArtist = this.viewNextArtist.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.addNewArtist = this.addNewArtist.bind(this);
+    this.renderForm = this.renderForm.bind(this);
   }
 
   componentDidMount() {
     this.getMoreArtists();
   }
 
-  getMoreArtists() {
+  getMoreArtists() {  
+    console.log('INSIDE OF GET MORE ARTISTS!!!!!!!!!!!');
+
     let newId = 0;
 
     if (this.state.currentCard.id) {
@@ -43,32 +50,65 @@ class App extends Component {
   }
 
   viewNextArtist() {
-    if (this.state.currentCardIndex === 9) {
+    const { currentCardIndex, featuredCards } = this.state;
+
+    if (currentCardIndex === 9) {
       this.getMoreArtists();
       return;
-    } else {
-      this.setState({
-        currentCardIndex: this.state.currentCardIndex + 1,
-      }, this.setState({
-        currentCard: this.state.featuredCards[this.state.currentCardIndex],
-      }));
     }
+    this.setState({
+      currentCardIndex: currentCardIndex + 1,
+    }, this.setState({
+      currentCard: featuredCards[currentCardIndex],
+    }));
+  }
+
+  handleInputChange(e) {
+    this.setState({
+      [e.target.id]: e.target.value,
+    });
+  }
+
+  addNewArtist(e) {
+    e.preventDefault();
+    const { artistName, picUrl, fact } = this.state;
+    let newArtist;
+    axios
+      .post('/api/cards', { artistName, picUrl, fact })
+      .then(({ data }) => {
+        this.setState({
+          currentView: 'deck',
+          currentCard: data
+        });
+      })
+      .catch(err => console.log('Error posting a new card', err));
+  }
+
+  renderForm() {
+    this.setState({ currentView: 'form' });
   }
 
   render() {
-    const { currentCard, currentCardIndex, viewNextArtist } = this.state;
+    const { currentCard, currentCardIndex, currentView } = this.state;
 
     return (
         <div className={ AppStyles.container }>
             <div className={ AppStyles.title }>
                 <h1>DivaDeck</h1>
             </div>
-            <DivaCard
-              currentCard={ currentCard }
-              index={ currentCardIndex }
-            />
+            { currentView === 'deck'
+              ? <DivaCard
+                currentCard={ currentCard }
+                index={ currentCardIndex }
+              />
+              : <NewCardForm
+                handleChange={ this.handleInputChange }
+                addNewArtist={ this.addNewArtist }
+               />
+            }
             <Navigation
               viewNextArtist={ this.viewNextArtist }
+              renderForm={ this.renderForm }
             />
         </div>
     );
