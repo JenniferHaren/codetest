@@ -5,14 +5,14 @@ import NewCardFormStyles from './NewCardFormStyles.css';
 import ButtonStyles from '../factoryComponents/ButtonStyles.css';
 
 const NewCardForm = (props) => {
-  const { handleChange } = props;
+  const { handleChange, addNewArtist } = props;
 
   return (
       <div className={ NewCardFormStyles.container }>
           <div>
               <h2>Enter A New Diva</h2>
           </div>
-          <form className={ NewCardFormStyles.form }>
+          <form id="form" onSubmit={ addNewArtist } className={ NewCardFormStyles.form }>
               <div className={ NewCardFormStyles.inputContainer }>
                   <Input placeholder="Artist Name" className={ NewCardFormStyles.input } id="artistName" handleChange={ handleChange } />
               </div>
@@ -23,7 +23,7 @@ const NewCardForm = (props) => {
                   <Input placeholder="Fun Fact" className={ NewCardFormStyles.input } id="fact" handleChange={ handleChange } />
               </div>
               <div>
-                  <Button className={ ButtonStyles.button } type="Submit" />
+                  <Button className={ ButtonStyles.button } type="Add" />
               </div>
           </form>
       </div>
