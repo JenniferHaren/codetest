@@ -66,10 +66,10 @@ class App extends Component {
       return;
     }
     this.setState({
+      currentCard: featuredCards[currentCardIndex + 1],
       currentCardIndex: currentCardIndex + 1,
-    }, this.setState({
-      currentCard: featuredCards[currentCardIndex],
-    }));
+      currentView: 'deck',
+    });
   }
 
   handleInputChange(e) {
