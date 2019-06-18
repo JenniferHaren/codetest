@@ -34,32 +34,32 @@ module.exports = {
     "uri" : "spotify:artist:6tbjWDEIzxoDsBA1FuhfPW"
   }, {
     "external_urls" : {
-      "spotify" : "https://open.spotify.com/artist/6XpaIBNiVzIetEPCWDvAFP"
+      "spotify" : "https://open.spotify.com/artist/4GvEc3ANtPPjt1ZJllr5Zl"
     },
     "followers" : {
       "href" : null,
-      "total" : 4166157
+      "total" : 1615045
     },
-    "genres" : [ "dance pop", "pop", "r&b", "urban contemporary" ],
-    "href" : "https://api.spotify.com/v1/artists/6XpaIBNiVzIetEPCWDvAFP",
-    "id" : "6XpaIBNiVzIetEPCWDvAFP",
+    "genres" : [ "dance pop", "pop", "post-teen pop" ],
+    "href" : "https://api.spotify.com/v1/artists/4GvEc3ANtPPjt1ZJllr5Zl",
+    "id" : "4GvEc3ANtPPjt1ZJllr5Zl",
     "images" : [ {
       "height" : 640,
-      "url" : "https://i.scdn.co/image/9cd1d09d5a351ca65c2f45246703614748ea9fed",
+      "url" : "https://i.scdn.co/image/45509320e642ccb504b927598857768df0468dc6",
       "width" : 640
     }, {
       "height" : 320,
-      "url" : "https://i.scdn.co/image/47a663cdb51106bf7f77810d9b4794319aebe969",
+      "url" : "https://i.scdn.co/image/936b4dcfa48592e818552e347be5e3290d111293",
       "width" : 320
     }, {
       "height" : 160,
-      "url" : "https://i.scdn.co/image/5dc8a6bbe3c8a3686b2ee3ec83dc12ab17658f53",
+      "url" : "https://i.scdn.co/image/78a5ee2f1543bf1fe3e1b507f7bb4f9bbb848be0",
       "width" : 160
     } ],
-    "name" : "Whitney Houston",
-    "popularity" : 79,
+    "name" : "Bazzi",
+    "popularity" : 86,
     "type" : "artist",
-    "uri" : "spotify:artist:6XpaIBNiVzIetEPCWDvAFP"
+    "uri" : "spotify:artist:4GvEc3ANtPPjt1ZJllr5Zl"
   }, {
     "external_urls" : {
       "spotify" : "https://open.spotify.com/artist/6vWDO969PvNqNYHIOW5v0m"
@@ -958,32 +958,32 @@ module.exports = {
     "uri" : "spotify:artist:4xRYI6VqpkE3UwrDrAZL8L"
   }, {
     "external_urls" : {
-      "spotify" : "https://open.spotify.com/artist/4xFUf1FHVy696Q1JQZMTRj"
+      "spotify" : "https://open.spotify.com/artist/3uJx5SnOM59Li7lCxA3b29"
     },
     "followers" : {
       "href" : null,
-      "total" : 3359317
+      "total" : 61110
     },
-    "genres" : [ "contemporary country", "country", "country dawn", "dance pop", "pop", "post-teen pop" ],
-    "href" : "https://api.spotify.com/v1/artists/4xFUf1FHVy696Q1JQZMTRj",
-    "id" : "4xFUf1FHVy696Q1JQZMTRj",
+    "genres" : [ "atl trap", "rap", "southern hip hop", "trap music", "vapor trap" ],
+    "href" : "https://api.spotify.com/v1/artists/3uJx5SnOM59Li7lCxA3b29",
+    "id" : "3uJx5SnOM59Li7lCxA3b29",
     "images" : [ {
       "height" : 640,
-      "url" : "https://i.scdn.co/image/6a4c76d2ba7583a5bb1fee6c6daeec1494cdb7d3",
+      "url" : "https://i.scdn.co/image/77da0dc2624d270354b94127d115b7cced3e3603",
       "width" : 640
     }, {
       "height" : 320,
-      "url" : "https://i.scdn.co/image/f35ae788fc2bc13e547e2d44af88c76ec6e16712",
+      "url" : "https://i.scdn.co/image/0f3346607a8ccdebbde72c3d144f310151a0d0c6",
       "width" : 320
     }, {
       "height" : 160,
-      "url" : "https://i.scdn.co/image/59414f5afc1e548b872302f617995d1f8612ceec",
+      "url" : "https://i.scdn.co/image/9300e9dab176a99b6586205fb8a0a9b98f753824",
       "width" : 160
     } ],
-    "name" : "Carrie Underwood",
-    "popularity" : 76,
+    "name" : "Lil Keed",
+    "popularity" : 72,
     "type" : "artist",
-    "uri" : "spotify:artist:4xFUf1FHVy696Q1JQZMTRj"
+    "uri" : "spotify:artist:3uJx5SnOM59Li7lCxA3b29"
   }, {
     "external_urls" : {
       "spotify" : "https://open.spotify.com/artist/00FQb4jTyendYWaN8pK0wa"
