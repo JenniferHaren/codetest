@@ -9,13 +9,18 @@ module.exports = {
   // gets next 10 cards/documents from the database
   getNextCards: (req, res) => {
     const { id } = req.query;
-    const upperBound = parseInt(id) + 9;
+    const lowerBound = parseInt(id);
+    const upperBound = lowerBound + 9;
+
+    console.log('THIS IS THE UPPERBOUND---------', upperBound);
     let firstGet;
 
-    Card.find({ id: { $gte: id, $lte: upperBound } })
+    Card.find({ id: { $gte: lowerBound, $lte: upperBound } })
 
     // if a card has been deleted from the database - make sure getNextCards still returns 10 cards
       .then(cards => {
+        console.log('THIS IS THE CARDS.LENGTH!!!!', cards.length);
+        console.log('THESE ARE THE CARDS--------', cards);
         if (cards.length < 10) {
           firstGet = cards;
           const missingCards = 10 - cards.length; 

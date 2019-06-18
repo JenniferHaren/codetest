@@ -24,23 +24,35 @@ class App extends Component {
   }
 
   getMoreArtists() {
+    let newId = 0;
+
+    if (this.state.currentCard.id) {
+      newId = this.state.currentCard.id;
+    }
+
     axios
-      .get('/api/cards', { params: { id: 1 } })
+      .get('/api/cards', { params: { id: newId + 1 } })
       .then(({ data }) => {
         this.setState({
           featuredCards: data,
           currentCard: data[0],
+          currentCardIndex: 0,
         });
       })
       .catch(err => console.log('Error getting featuredCards', err));
   }
 
   viewNextArtist() {
-    this.setState({
-      currentCardIndex: this.state.currentCardIndex + 1,
-    }, this.setState({
-      currentCard: this.state.featuredCards[this.state.currentCardIndex],
-    }));
+    if (this.state.currentCardIndex === 9) {
+      this.getMoreArtists();
+      return;
+    } else {
+      this.setState({
+        currentCardIndex: this.state.currentCardIndex + 1,
+      }, this.setState({
+        currentCard: this.state.featuredCards[this.state.currentCardIndex],
+      }));
+    }
   }
 
   render() {
