@@ -18,12 +18,13 @@ module.exports = {
       .then(cards => {
         if (cards.length < 10) {
           firstGet = cards;
-          const missingCards = 10 - cards.length;     
+          const missingCards = 10 - cards.length; 
           const lastId = cards[cards.length - 1].id + 1;
           Card.find({ id: { $gte: lastId, $lt: lastId + missingCards } })
             .then(newCards => res.status(200).send(firstGet.concat(newCards)));
-        } else {
+        } else if (cards.length === 10) {
           res.status(200).send(cards);
+        } else {
         }
       })
       .catch(err => console.log('Error getting cards', err));

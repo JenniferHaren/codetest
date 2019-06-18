@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentView: '',
+      currentCardIndex: 0,
       featuredCards: [],
       currentCard: {},
       newCardName: '',
@@ -16,6 +16,7 @@ class App extends Component {
       newFact: '',
     };
     this.getMoreArtists = this.getMoreArtists.bind(this);
+    this.viewNextArtist = this.viewNextArtist.bind(this);
   }
 
   componentDidMount() {
@@ -28,22 +29,35 @@ class App extends Component {
       .then(({ data }) => {
         this.setState({
           featuredCards: data,
-          currentView: data[0],
+          currentCard: data[0],
         });
       })
       .catch(err => console.log('Error getting featuredCards', err));
   }
 
+  viewNextArtist() {
+    this.setState({
+      currentCardIndex: this.state.currentCardIndex + 1,
+    }, this.setState({
+      currentCard: this.state.featuredCards[this.state.currentCardIndex],
+    }));
+  }
+
   render() {
-    const { currentView } = this.state;
+    const { currentCard, currentCardIndex, viewNextArtist } = this.state;
 
     return (
         <div className={ AppStyles.container }>
             <div className={ AppStyles.title }>
                 <h1>DivaDeck</h1>
             </div>
-            <DivaCard currentView={ currentView } />
-            <Navigation />
+            <DivaCard
+              currentCard={ currentCard }
+              index={ currentCardIndex }
+            />
+            <Navigation
+              viewNextArtist={ this.viewNextArtist }
+            />
         </div>
     );
   }
