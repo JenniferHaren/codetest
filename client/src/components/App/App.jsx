@@ -16,7 +16,7 @@ class App extends Component {
       artistName: '',
       picUrl: '',
       fact: '',
-      cardLength: 50,
+      deckLength: 49,
     };
     this.getMoreArtists = this.getMoreArtists.bind(this);
     this.viewNextArtist = this.viewNextArtist.bind(this);
@@ -30,13 +30,16 @@ class App extends Component {
     this.getMoreArtists();
   }
 
-  getMoreArtists() {  
-    console.log('INSIDE OF GET MORE ARTISTS!!!!!!!!!!!');
+  getMoreArtists() {
+    const { currentCard, deckLength } = this.state;
 
     let newId = 0;
 
-    if (this.state.currentCard.id) {
-      newId = this.state.currentCard.id;
+    if (currentCard.id) {
+      newId = currentCard.id;
+    }
+    if (currentCard.id >= deckLength) {
+      newId = 0;
     }
 
     axios
@@ -52,9 +55,12 @@ class App extends Component {
   }
 
   viewNextArtist() {
-    const { currentCardIndex, featuredCards } = this.state;
+    const { currentCardIndex, featuredCards, currentCard, deckLength } = this.state;
 
     if (currentCardIndex === 9) {
+      this.getMoreArtists();
+      return;
+    } else if (currentCard.id >= deckLength) {
       this.getMoreArtists();
       return;
     }
@@ -81,7 +87,7 @@ class App extends Component {
         this.setState({
           currentView: 'deck',
           currentCard: data,
-          cardLength: this.state.cardLength + 1
+          deckLength: this.state.deckLength + 1
         });
       })
       .catch(err => console.log('Error posting a new card', err));
@@ -94,7 +100,7 @@ class App extends Component {
       .delete('/api/cards', { params: { id } })
       .then(() => this.viewNextArtist())
       .then(this.setState({
-        cardLength: this.state.cardLength - 1
+        deckLength: this.state.deckLength - 1
       }))
       .catch(err => console.log('Error deleting from the database', err));
   }

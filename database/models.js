@@ -25,9 +25,13 @@ const renderDBArtistObjects = (arr) => {
   });
 };
 
+const Card = new mongoose.model('Card', cardSchema);
+
+// Change the shape of the data from Spotify into objects that fit the cardSchema.
+
 // const databaseArtists = renderDBArtistObjects(artistList.artists);
 
-const Card = new mongoose.model('Card', cardSchema);
+// Seed the database
 
 // Card.insertMany(databaseArtists, function(error,docs) {});
 
