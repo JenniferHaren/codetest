@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DivaCard from '../DivaCard/DivaCard.jsx';
+import NewCardForm from '../NewCardForm/NewCardForm.jsx';
 import Navigation from '../Navigation/Navigation.jsx';
 import AppStyles from './AppStyles.css';
 
@@ -8,15 +9,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentView: 'deck',
       currentCardIndex: 0,
       featuredCards: [],
       currentCard: {},
-      newCardName: '',
-      newPicUrl: '',
-      newFact: '',
+      artistName: '',
+      picUrl: '',
+      fact: '',
     };
     this.getMoreArtists = this.getMoreArtists.bind(this);
     this.viewNextArtist = this.viewNextArtist.bind(this);
+    this.renderForm = this.renderForm.bind(this);
   }
 
   componentDidMount() {
@@ -55,20 +58,28 @@ class App extends Component {
     }
   }
 
+  renderForm() {
+    this.setState({ currentView: 'form' });
+  }
+
   render() {
-    const { currentCard, currentCardIndex, viewNextArtist } = this.state;
+    const { currentCard, currentCardIndex, viewNextArtist, currentView } = this.state;
 
     return (
         <div className={ AppStyles.container }>
             <div className={ AppStyles.title }>
                 <h1>DivaDeck</h1>
             </div>
-            <DivaCard
-              currentCard={ currentCard }
-              index={ currentCardIndex }
-            />
+            { currentView === 'deck'
+              ? <DivaCard
+                currentCard={ currentCard }
+                index={ currentCardIndex }
+              />
+              : <NewCardForm />
+            }
             <Navigation
               viewNextArtist={ this.viewNextArtist }
+              renderForm={ this.renderForm }
             />
         </div>
     );

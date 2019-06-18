@@ -1,0 +1,8 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  height: 35;
+  background-image: linear-gradient(to top, rgba(84, 153, 199,0.25), rgba(84, 153, 199,0.9));
+}
